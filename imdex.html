@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me</title>
+</head>
+
+<body>
+
+  <h1>Send Me a Message</h1>
+
+  <form id="contact-form">
+
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="message">Message</label><br>
+    <textarea id="message" name="message" rows="6" required></textarea><br><br>
+
+    <button type="submit">Send Message</button>
+
+  </form>
+
+  <p id="status"></p>
+
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script>
+    emailjs.init({
+      publicKey: "vqwz]9CFkZJz|5VWjp3PN"
+    });
+
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm(
+        "service_fo67tap",
+        "template_bz109yo",
+        this
+      )
+      .then(function() {
+        document.getElementById("status").textContent =
+          "Message sent successfully!";
+
+        document.getElementById("contact-form").reset();
+      })
+      .catch(function(error) {
+        document.getElementById("status").textContent =
+          "Something went wrong. Please try again.";
+
+        console.error("EmailJS Error:", error);
+      });
+    });
+  </script>
+
+</body>
+</html>
